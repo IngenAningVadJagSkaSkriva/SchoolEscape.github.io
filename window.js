@@ -64,12 +64,14 @@ var colision = (x,xSize,y,ySize,x2,x2Size,y2,y2Size,Type1ForColisionCheck) => {
        reset("all");
        x1 = 2;
        y1 = 2;
+       count = 0;
        scream.play();
     }
     var win = () => {
         points++;
         alert("YOU WON! YOU HAVE "+points+" POINTS NOW!");
         reset("all");
+        count = 0;
         x1 = 2;
         y1 = 2;
     }
@@ -212,6 +214,11 @@ setInterval(() =>{
 },500);
 setInterval(() => {
     if(p == 1) return 0;
+    if(count > max) {
+        count = 0;
+        max = Math.ceil(max * 1.1);
+        win();
+    }
     scream.currentTime = 0;
     scream.pause();
     for(let i = 0; i < index; i++) {
@@ -227,11 +234,6 @@ setInterval(() => {
     ballYspeed[1] = test(ball[1].screenX,ball[1].screenY,0,screen.height,"Y");
     ballXspeed[2] = test(ball[2].screenX,ball[2].screenY,screen.width,0,"X");
     ballYspeed[2] = test(ball[2].screenX,ball[2].screenY,screen.width,0,"Y");
-    if(count > max) {
-        count = 0;
-        max = Math.ceil(max * 1.1);
-        win();
-    }
     },2000);
 }, 10000);
 onbeforeunload = () => {
