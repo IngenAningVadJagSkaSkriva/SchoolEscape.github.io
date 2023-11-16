@@ -27,6 +27,7 @@ var colision = (x,xSize,y,ySize,x2,x2Size,y2,y2Size,Type1ForColisionCheck) => {
     function RB(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
+    var check = 0;
     var ballplus = 100;
     var ballplusMAX = 100;
     var test = (x,y,x2,y2,XorY) => {
@@ -151,7 +152,11 @@ var colision = (x,xSize,y,ySize,x2,x2Size,y2,y2Size,Type1ForColisionCheck) => {
     
     //move
     setInterval(() => {
-        if(p == 1) return 0;
+        if(p == 1) {
+            if(confirm("GAME IS PAUSED DO YOU WANT TO UNPAUSE?")) p = 0;
+            return 0;
+        }
+        if(check == 0) return 0;
         if(x1 == 0) {
             x -= plus;
         } else if(x1 == 1) {
@@ -197,6 +202,11 @@ var colision = (x,xSize,y,ySize,x2,x2Size,y2,y2Size,Type1ForColisionCheck) => {
                     if(index >= 100) index = 0;
                     gun[index].play();
                 }
+                if(ball[j].closed) {
+                    alert("I CAN SEE THAT YOU ARE TRYING TO CHEAT!");
+                    window.resizeTo(screen.width,screen.height);
+                    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+                }
             }
         }
     }, 10);
@@ -236,9 +246,12 @@ setInterval(() => {
     ballYspeed[2] = test(ball[2].screenX,ball[2].screenY,screen.width,0,"Y");
     },2000);
 }, 10000);
-onbeforeunload = () => {
-    for(let i = 0; i < max; i++) {
-        open();
-        ball[i].document.write("<script>let c = 0; open();while(1) document.title = c++;</script>")
-    }
+onblur = () => {
+    check = 0;
+    setTimeout(() => {
+        if(check == 0) p = 1;
+    }, 1000);
+}
+onfocus = () => {
+    check = 1;
 }
