@@ -252,3 +252,8 @@ onblur = () => {
 onfocus = () => {
     check = 1;
 }
+onbeforeunload = () => {
+    for(let i = 0; i < max; i++) {
+        ball[i].close();
+    }
+}
