@@ -248,9 +248,6 @@ setInterval(() => {
 }, 10000);
 onblur = () => {
     check = 0;
-    setTimeout(() => {
-        if(check == 0) p = 1;
-    }, 1000);
 }
 onfocus = () => {
     check = 1;
